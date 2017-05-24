@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="de">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>rolling</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type="text/css">
+      body {
+        padding: 0;
+        margin: 0;
+        height: 100vh;
+      }
+
+      svg {
+        position: absolute;
+        background: #eee;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+      }
+
+      svg circle.ball {
+        cursor: pointer;
+      }
+
+      .zoom-in, .zoom-out {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+      }
+
+      .zoom-out {
+        right: 50px;
+      }
+    </style>
+    <!--script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g=" crossorigin="anonymous"></script-->
+</head>
+<body>
+  <svg id="canvas" width="100vw" height="100vh" viewBox="0 0 100 100"></svg>
+  <button class="zoom-out" onClick="zoom(-25);">-</button>
+  <button class="zoom-in" onClick="zoom(+25);">+</button>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
+  <script type="text/javascript">
+      var circles = [];
+      var hammerOptions = {};
+      var radius = 2;
+      var baseDistance = 17;
+      var count = 10;
+      var width = 100;
+      var svg = document.getElementById("canvas");
+
+      var setCircleDistance = function(circle, distance) {
+        console.log(distance);
+        circle.setAttribute('style', 'transform: rotate(' + circle.deg + 'deg) translateX(' + (distance) + 'px) rotate(-' + circle.deg + 'deg);');
+      }
+
+      var addCircle = function(deg, color) {
+        var circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+        circle.setAttribute('class', 'ball');
+        circle.setAttribute('cx', width/2);
+        circle.setAttribute('cy', width/2);
+        circle.setAttribute('r', radius);
+        circle.setAttribute('fill', color);
+        circle.deg = deg;
+        circle.setAttribute('style', 'transform: rotate(' + deg + 'deg) translateX(' + baseDistance  + 'px) rotate(-' + deg + 'deg);');
+        circles.push(circle);
+        svg.appendChild(circle);
+
+        var hammer = new Hammer(circle, hammerOptions);
+        hammer.on('pan', function(event) {
+          var x = event.center.x - (svg.getBoundingClientRect().width / 2);
+          var y = event.center.y - (svg.getBoundingClientRect().height / 2);
+          var distance = Math.pow((Math.pow(x, 2) + Math.pow(y, 2)), 0.5) * (1/6.2);
+          setCircleDistance(circle, distance);
+        });
+      }
+
+      var zoom = function(size) {
+        if((width + size) >= 100 && (width + size) <= 300) {
+          width += size;
+          svg.setAttribute('width', width + 'vw');
+          svg.setAttribute('height', width + 'vh');
+        }
+      }
+
+      var getRandomColor = function() {
+        var letters = '0123456789ABCDEF';
+        var color = '#';
+        for (var i = 0; i < 6; i++ ) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+      }
+
+
+      window.onload = function(){
+        for(var i = 0; i <= 10; i++) {
+          var circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+          circle.setAttribute('cx', width/2);
+          circle.setAttribute('cy', width/2);
+          circle.setAttribute('r', Math.pow((i + 0.5), 2.25));
+          circle.setAttribute('fill', 'none');
+          circle.setAttribute('stroke', '#DDD');
+          circle.setAttribute('stroke-width', 0.25);
+          svg.appendChild(circle);
+        }
+
+        for(var i = 0; i <= count; i++) {
+          addCircle(i * (360/(count+1)), getRandomColor());
+        }
+      }
+  </script>
+</body>
+</html>
