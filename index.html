@@ -33,16 +33,6 @@
       svg circle.ball {
         cursor: pointer;
       }
-
-      .zoom-in, .zoom-out {
-        position: fixed;
-        left: 20px;
-        top: 20px;
-      }
-
-      .zoom-out {
-        left: 50px;
-      }
     </style>
     <!--script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g=" crossorigin="anonymous"></script-->
 </head>
@@ -50,20 +40,45 @@
   <div class="scroll">
     <svg id="canvas" width="100vw" height="100vh" viewBox="0 0 100 100"></svg>
   </div>
-  <button class="zoom-out" onClick="zoom(-25);">-</button>
-  <button class="zoom-in" onClick="zoom(+25);">+</button>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
   <script type="text/javascript">
+
+      EasingFunctions = {
+        // no easing, no acceleration
+        linear: function (t) { return t },
+        // accelerating from zero velocity
+        easeInQuad: function (t) { return t*t },
+        // decelerating to zero velocity
+        easeOutQuad: function (t) { return t*(2-t) },
+        // acceleration until halfway, then deceleration
+        easeInOutQuad: function (t) { return t<.5 ? 2*t*t : -1+(4-2*t)*t },
+        // accelerating from zero velocity
+        easeInCubic: function (t) { return t*t*t },
+        // decelerating to zero velocity
+        easeOutCubic: function (t) { return (--t)*t*t+1 },
+        // acceleration until halfway, then deceleration
+        easeInOutCubic: function (t) { return t<.5 ? 4*t*t*t : (t-1)*(2*t-2)*(2*t-2)+1 },
+        // accelerating from zero velocity
+        easeInQuart: function (t) { return t*t*t*t },
+        // decelerating to zero velocity
+        easeOutQuart: function (t) { return 1-(--t)*t*t*t },
+        // acceleration until halfway, then deceleration
+        easeInOutQuart: function (t) { return t<.5 ? 8*t*t*t*t : 1-8*(--t)*t*t*t },
+        // accelerating from zero velocity
+        easeInQuint: function (t) { return t*t*t*t*t },
+        // decelerating to zero velocity
+        easeOutQuint: function (t) { return 1+(--t)*t*t*t*t },
+        // acceleration until halfway, then deceleration
+        easeInOutQuint: function (t) { return t<.5 ? 16*t*t*t*t*t : 1+16*(--t)*t*t*t*t }
+      }
+
       var circles = [];
-      var hammerOptions = {
-        threshold: 0,
-        domEvents: true
-      };
       var radius = 2;
       var baseDistance = 17;
       var count = 10;
       var width = 100;
       var svg = document.getElementById("canvas");
+      var zoomedIn = false;
 
       var setCircleDistance = function(circle, distance) {
         circle.distance += distance;
@@ -84,8 +99,15 @@
         circles.push(circle);
         svg.appendChild(circle);
 
-        var hammer = new Hammer(circle, hammerOptions);
+        var hammer = new Hammer.Manager(circle);
+        hammer.add(new Hammer.Pan({threshold: 0, pointers: 0, domEvents: true}));
+        hammer.add(new Hammer.Tap({}));
         hammer.on('pan', function(event) {
+          console.log(event);
+          event.srcEvent.stopPropagation();
+          event.srcEvent.preventDefault();
+          event.preventDefault();
+
           var x = event.center.x - (svg.getBoundingClientRect().width / 2);
           var y = event.center.y - (svg.getBoundingClientRect().height / 2);
           var distance = Math.pow((Math.pow(x, 2) + Math.pow(y, 2)), 0.5) * (1/6.2) - circle.distance;
@@ -97,14 +119,53 @@
             }
           }
         });
+
+        hammer.on('tap', function(event){
+          if(zoomedIn) {
+            zoomedIn = false;
+            zoomOut(0);
+          } else {
+            zoomedIn = true;
+            var scroll = document.getElementsByClassName('scroll')[0];
+            var b1 = scroll.getBoundingClientRect();
+            zoomIn(circle, 0, b1.width/4);
+          }
+        });
       }
 
-      var zoom = function(size) {
-        if((width + size) >= 100 && (width + size) <= 300) {
-          width += size;
+      var zoomIn = function(circle, level, shiftLeft) {
+        if(level <= 30) {
+          setTimeout(function(){
+            zoom(EasingFunctions.easeOutQuad(level/30) * 5);
+            var bound = circle.getBoundingClientRect();
+            scroll(bound.left, bound.top, shiftLeft, 0);
+            zoomIn(circle, level+1, shiftLeft);
+          }, 1);
+        }
+      }
+
+      var zoomOut = function(level) {
+        if(level <= 30) {
+          setTimeout(function(){
+            zoom(EasingFunctions.easeOutQuad(level/30) * -5);
+            zoomOut(level+1);
+          }, 1);
+        }
+      }
+
+      var zoom = function(level) {
+        if((width + level) >= 100 && (width + level) <= 300) {
+          width += level;
           svg.setAttribute('width', width + 'vw');
           svg.setAttribute('height', width + 'vh');
         }
+      }
+
+      var scroll = function(x, y, shiftLeft, shiftTop) {
+        var scroll = document.getElementsByClassName('scroll')[0];
+        var b1 = scroll.getBoundingClientRect();
+        scroll.scrollLeft = scroll.scrollLeft + x - b1.width/2 + shiftLeft;
+        scroll.scrollTop = scroll.scrollTop + y - b1.height/2 + shiftTop;
       }
 
       var getRandomColor = function() {
