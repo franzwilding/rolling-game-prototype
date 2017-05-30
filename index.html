@@ -356,7 +356,15 @@
       }
 
       var endGame = function(){
-       mainmenu.classList.remove('out');
+        if (confirm('Möchtest du das aktuelle Spiel unterbrechen und zum Hauptmenü zurückkehren?')) {
+          mainmenu.classList.remove('out');
+          setTimeout(function(){
+            for(var i = 0; i < circles.length; i++) {
+              setCircleDistance(circles[i], baseDistance - circles[i].distance);
+            }
+            closeOverlay();
+          }, 1000);
+        }
       }
 
 
