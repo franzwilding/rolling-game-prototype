@@ -7,6 +7,8 @@
     <meta name="description" content="">
     <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,600" rel="stylesheet">
+    <link rel="apple-touch-icon" sizes="144x144" href="apple-icon-144x144.png" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
     <style type="text/css">
       body {
         padding: 0;
@@ -155,11 +157,12 @@
       var circles = [];
       var radius = 2;
       var baseDistance = 17;
-      var count = 8;
+      var count = 7;
       var width = 100;
       var svg = document.getElementById("canvas");
       var overlay = document.getElementById("overlay");
       var zoomedIn = false;
+      var colors = [ '#D0011B', '#F6A623', '#F8E81C', '#B8E986', '#50E3C2', '#4990E2', '#9012FE', '#BD0FE1' ];
 
       var setCircleDistance = function(circle, distance) {
         circle.distance += distance;
@@ -193,20 +196,15 @@
           event.srcEvent.preventDefault();
           event.preventDefault();
           var svgB = svg.getBoundingClientRect();
-
           var x = event.center.x - (svgB.width / 2);
           var y = event.center.y - (svgB.height / 2);
           var distance = Math.pow((Math.pow(x, 2) + Math.pow(y, 2)), 0.5) * (1/6.2) - circle.distance;
 
-          if(isNotInCenter(circle, svgB, distance)) {
-            setCircleDistance(circle, distance);
-          }
+          setCircleDistance(circle, distance);
 
           for(let i = 0; i < circles.length; i++) {
             if(circles[i] != circle) {
-              if(isNotInCenter(circles[i], svgB, distance  * circles[i].factor)) {
-                setCircleDistance(circles[i], distance  * circles[i].factor);
-              }
+              setCircleDistance(circles[i], distance  * circles[i].factor);
             }
           }
         });
@@ -225,9 +223,9 @@
       }
 
       var zoomIn = function(circle, level, shiftLeft) {
-        if(level <= 30) {
+        if(level <= 10) {
           setTimeout(function(){
-            zoom(EasingFunctions.easeOutQuad(level/30) * 5);
+            zoom(EasingFunctions.easeOutQuad(level/10) * 5);
             var bound = circle.getBoundingClientRect();
             scroll(bound.left, bound.top, shiftLeft, 0);
             zoomIn(circle, level+1, shiftLeft);
@@ -237,9 +235,9 @@
       }
 
       var zoomOut = function(level) {
-        if(level <= 30) {
+        if(level <= 10) {
           setTimeout(function(){
-            zoom(EasingFunctions.easeOutQuad(level/30) * -5);
+            zoom(EasingFunctions.easeOutQuad(level/10) * -5);
             zoomOut(level+1);
             for(let i = 0; i < circles.length; i++) {
               circles[i].style.opacity = "";
@@ -248,38 +246,11 @@
         }
       }
 
-      var isNotInCenter = function(circle, svg, distance) {
-        var padding = 30;
-        var top = (svg.height / 2) - padding;
-        var bottom = (svg.height / 2) + padding;
-        var left = (svg.width / 2) - padding;
-        var right = (svg.width / 2) + padding;
-
-        var atop = (svg.height / 2);
-        var abottom = (svg.height / 2);
-        var aleft = (svg.width / 2);
-        var aright = (svg.width / 2);
-
-        var cb = circle.getBoundingClientRect();
-        var x = cb.left + cb.width / 2;
-        var y = cb.top + cb.height / 2;
-
-        if((x > left && x < right && y > top && y < bottom) && distance > circle.distance) {
-          return true;
-        }
-
-        if(x > left && x < right && y > top && y < bottom) {
-          return false;
-        }
-
-        return true;
-      }
-
       var zoom = function(level) {
         if((width + level) >= 100 && (width + level) <= 300) {
           width += level;
-          svg.setAttribute('width', width * 2 + '%');
-          svg.setAttribute('height', width * 1.5 + '%');
+          svg.setAttribute('width', width + '%');
+          svg.setAttribute('height', width + '%');
         }
       }
 
@@ -297,6 +268,10 @@
             color += letters[Math.floor(Math.random() * 16)];
         }
         return color;
+      }
+
+      var getColor = function(i) {
+        return colors[i % colors.length];
       }
 
       var openOverlay = function(color) {
@@ -324,7 +299,7 @@
           svg.appendChild(circle);
 
         for(var i = 0; i <= count; i++) {
-          addCircle(i * (360/(count+1)), getRandomColor());
+          addCircle(i * (360/(count+1)), getColor(i));
         }
       }
   </script>
