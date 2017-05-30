@@ -10,6 +10,16 @@
     <link rel="apple-touch-icon" sizes="144x144" href="apple-icon-144x144.png" />
     <meta name="apple-mobile-web-app-capable" content="yes">
     <style type="text/css">
+
+      @-webkit-keyframes rotating /* Safari and Chrome */ {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
       body {
         padding: 0;
         margin: 0;
@@ -23,6 +33,15 @@
         height: 100vh;
         width: 100vw;
         overflow: scroll;
+      }
+
+      .scroll .end-game {
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        width: 20px;
+        height: 20px;
+        z-index: 10;
       }
 
       svg {
@@ -106,12 +125,49 @@
         transform: rotate(-45deg);
       }
 
+      #loading,
+      #menu {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background: white;
+        z-index: 50;
+        transition: opacity 0.25s ease-out;
+        opacity: 1;
+      }
+
+      #loading.out {
+        opacity: 0;
+      }
+
+      #menu.out {
+        opacity: 0;
+        top: 100vh;
+      }
+
+      #loading img {
+        width: 60px;
+        height: 60px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin: -30px 0 0 -30px;
+        animation: rotating 2s linear infinite;
+      }
+
+      #menu {
+        z-index: 40;
+      }
+
     </style>
     <!--script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g=" crossorigin="anonymous"></script-->
 </head>
 <body>
   <div class="scroll">
     <svg id="canvas" width="100%" height="100%" viewBox="0 0 100 100"></svg>
+    <img class="end-game" src="endGame.svg" onclick="endGame();"></div>
   </div>
   <div id="overlay">
     <h2>Freier Hochschulzugang</h2>
@@ -121,6 +177,12 @@
     <p>Tenderloin alcatra ball tip tail frankfurter chuck jowl leberkas. Spare ribs pork loin jowl ham hock bresaola flank short loin pork kevin corned beef tenderloin shoulder ham alcatra. Chicken beef landjaeger rump meatloaf kielbasa ball tip turducken. Venison turducken porchetta shankle, jerky pancetta filet mignon.</p>
 
     <button onclick="closeOverlay();" class="close"></button>
+  </div>
+  <div id="loading">
+    <img src="apple-icon-144x144.png" />
+  </div>
+  <div id="menu" onclick="startGame();"">
+    <h1>Menu</h1>
   </div>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
   <script type="text/javascript">
@@ -161,6 +223,8 @@
       var width = 100;
       var svg = document.getElementById("canvas");
       var overlay = document.getElementById("overlay");
+      var loader = document.getElementById("loading");
+      var mainmenu = document.getElementById("menu");
       var zoomedIn = false;
       var colors = [ '#D0011B', '#F6A623', '#F8E81C', '#B8E986', '#50E3C2', '#4990E2', '#9012FE', '#BD0FE1' ];
 
@@ -287,8 +351,17 @@
         zoomOut(0);
       }
 
+      var startGame = function(){
+        mainmenu.classList.add('out');
+      }
+
+      var endGame = function(){
+       mainmenu.classList.remove('out');
+      }
+
 
       window.onload = function(){
+
         var circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
           circle.setAttribute('cx', width/2);
           circle.setAttribute('cy', width/2);
@@ -301,6 +374,13 @@
         for(var i = 0; i <= count; i++) {
           addCircle(i * (360/(count+1)), getColor(i));
         }
+
+        setTimeout(function(){
+          loader.classList.add('out');
+          setTimeout(function(){
+            loader.remove();
+          }, 1001);
+        }, 4000);
       }
   </script>
 </body>
