@@ -73,6 +73,7 @@
         padding: 50px;
         box-sizing: border-box;
         overflow: auto;
+        -webkit-overflow-scrolling: touch;
         right: -50%;
         opacity: 0;
         transition: all 0.25s ease-out;
@@ -147,6 +148,10 @@
         top: 100vh;
       }
 
+      #menu.out header {
+        top: 100vh;
+      }
+
       #loading img {
         width: 60px;
         height: 60px;
@@ -159,6 +164,79 @@
 
       #menu {
         z-index: 40;
+        overflow: auto;
+        -webkit-overflow-scrolling: touch;
+        padding: 80px 20px 20px;
+        background: #f6f6f6;
+      }
+
+      #menu header {
+        position: fixed;
+        top: 0;
+        right: 0;
+        left: 0;
+        height: 50px;
+        background: #fff;
+        border-bottom: 1px solid #eee;
+        box-shadow: 0 1px 8px 0 rgba(0,0,0,0.05);
+      }
+
+      #menu header h1 {
+        text-align: center;
+        font-size: 16px;
+        line-height: 50px;
+        margin: 0;
+        padding: 0;
+        color: #333;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      #menu header h1 span {
+        color: #999;
+      }
+
+      #menu .games {
+        overflow: auto;
+        -webkit-overflow-scrolling: touch;
+        height: 200px;
+        white-space: nowrap;
+      }
+
+      #menu .game {
+        display: inline-block;
+        text-align: center;
+        margin: 10px;
+      }
+
+      #menu .game .icon {
+        border-radius: 16px;
+        border: 1px solid #eee;
+        width: 128px;
+        height: 128px;
+        background-position: center center;
+        background-size: cover;
+      }
+
+      #menu .game .icon {
+        display: block;
+        margin-top: 5px;
+        font-size: 10px;
+        font-weight: normal;
+      }
+
+      #menu .game-section {
+        margin-bottom: 50px;
+      }
+
+      #menu .game-section h2 {
+        font-weight: normal;
+        font-size: 1.2em;
+        color: #333;
+        border-top: 1px solid #ddd;
+        padding: 10px;
+        margin-top: 20px;
       }
 
     </style>
@@ -181,8 +259,713 @@
   <div id="loading">
     <img src="apple-icon-144x144.png" />
   </div>
-  <div id="menu" onclick="startGame();"">
-    <h1>Menu</h1>
+  <div id="menu">
+
+    <header>
+      <h1><span>Rolling:</span> Spieleauswahl</h1>
+      <div class="settings-icon"></div>
+    </header>
+
+    <section class="game-section big">
+      <h2>Angesagte Spiele</h2>
+      <div class="games">
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/2733/screenshots/3533565/dribbbs-frogzoomedout.jpg);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/407255/screenshots/3077264/usabuttons_pink.jpg);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/24812/screenshots/2358288/politico-4x3.jpg);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/126602/screenshots/2618745/dribbble_cuba_01.jpg);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/730703/screenshots/3305128/james-gileard-folio-illustration-trump-foreign-affairs-magazine-dribble.jpg);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/510185/screenshots/3428814/kultura-_1.jpg);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/2733/screenshots/3424597/coffee-machine-dribbbs.png);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/2733/screenshots/2270024/shipdribbble.jpg);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/86249/screenshots/369352/fidel_mini.jpg);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/28543/screenshots/2872259/pattern_ieroglif-71.jpg);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/31625/screenshots/644127/math.jpg);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/108671/screenshots/1478588/science2.jpg);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/1058/screenshots/1206161/sign_dribbb.jpg);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/35810/screenshots/2071807/wagepoint-calculator.jpg);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/58661/screenshots/1818073/csc_pattern.png);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/1060640/screenshots/3534455/icecream.png);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/1245512/screenshots/3533716/__2.jpg);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/974609/screenshots/3533300/052717.jpg);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/353551/screenshots/3533743/daily_01_dribbble.png);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/148582/screenshots/3533907/dinny.png);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/148582/screenshots/2266982/cupcakes_.png);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/148582/screenshots/1985966/19th.png);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/719009/screenshots/3533859/sunny_beautiful_day_.jpg);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/1052957/screenshots/3534345/3-01.gif);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/1326793/screenshots/3533938/06_logic-result-illustration-freska.jpg);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/749358/screenshots/3534425/distraction_dribble.png);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/1731254/screenshots/3534236/tubik_arts_pot_illustration_cg.png);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="game-section big">
+      <h2>Meine Favoriten</h2>
+      <div class="games">
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/2733/screenshots/3533565/dribbbs-frogzoomedout.jpg);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/407255/screenshots/3077264/usabuttons_pink.jpg);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/24812/screenshots/2358288/politico-4x3.jpg);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/126602/screenshots/2618745/dribbble_cuba_01.jpg);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/730703/screenshots/3305128/james-gileard-folio-illustration-trump-foreign-affairs-magazine-dribble.jpg);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/510185/screenshots/3428814/kultura-_1.jpg);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/2733/screenshots/3424597/coffee-machine-dribbbs.png);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/2733/screenshots/2270024/shipdribbble.jpg);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/86249/screenshots/369352/fidel_mini.jpg);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/28543/screenshots/2872259/pattern_ieroglif-71.jpg);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/31625/screenshots/644127/math.jpg);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/108671/screenshots/1478588/science2.jpg);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/1058/screenshots/1206161/sign_dribbb.jpg);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/35810/screenshots/2071807/wagepoint-calculator.jpg);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/58661/screenshots/1818073/csc_pattern.png);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/1060640/screenshots/3534455/icecream.png);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/1245512/screenshots/3533716/__2.jpg);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/974609/screenshots/3533300/052717.jpg);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/353551/screenshots/3533743/daily_01_dribbble.png);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/148582/screenshots/3533907/dinny.png);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/148582/screenshots/2266982/cupcakes_.png);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/148582/screenshots/1985966/19th.png);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/719009/screenshots/3533859/sunny_beautiful_day_.jpg);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/1052957/screenshots/3534345/3-01.gif);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/1326793/screenshots/3533938/06_logic-result-illustration-freska.jpg);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/749358/screenshots/3534425/distraction_dribble.png);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/1731254/screenshots/3534236/tubik_arts_pot_illustration_cg.png);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="game-section">
+      <h2>Spiele aus der Kategorie: Mathematik</h2>
+      <div class="games">
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/2733/screenshots/3533565/dribbbs-frogzoomedout.jpg);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/407255/screenshots/3077264/usabuttons_pink.jpg);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/24812/screenshots/2358288/politico-4x3.jpg);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/126602/screenshots/2618745/dribbble_cuba_01.jpg);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/730703/screenshots/3305128/james-gileard-folio-illustration-trump-foreign-affairs-magazine-dribble.jpg);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/510185/screenshots/3428814/kultura-_1.jpg);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/2733/screenshots/3424597/coffee-machine-dribbbs.png);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/2733/screenshots/2270024/shipdribbble.jpg);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/86249/screenshots/369352/fidel_mini.jpg);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/28543/screenshots/2872259/pattern_ieroglif-71.jpg);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/31625/screenshots/644127/math.jpg);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/108671/screenshots/1478588/science2.jpg);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/1058/screenshots/1206161/sign_dribbb.jpg);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/35810/screenshots/2071807/wagepoint-calculator.jpg);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/58661/screenshots/1818073/csc_pattern.png);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/1060640/screenshots/3534455/icecream.png);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/1245512/screenshots/3533716/__2.jpg);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/974609/screenshots/3533300/052717.jpg);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/353551/screenshots/3533743/daily_01_dribbble.png);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/148582/screenshots/3533907/dinny.png);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/148582/screenshots/2266982/cupcakes_.png);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/148582/screenshots/1985966/19th.png);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/719009/screenshots/3533859/sunny_beautiful_day_.jpg);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/1052957/screenshots/3534345/3-01.gif);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/1326793/screenshots/3533938/06_logic-result-illustration-freska.jpg);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/749358/screenshots/3534425/distraction_dribble.png);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/1731254/screenshots/3534236/tubik_arts_pot_illustration_cg.png);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="game-section">
+      <h2>Spiele aus der Kategorie: Naturwissenschaften</h2>
+      <div class="games">
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/2733/screenshots/3533565/dribbbs-frogzoomedout.jpg);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/407255/screenshots/3077264/usabuttons_pink.jpg);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/24812/screenshots/2358288/politico-4x3.jpg);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/126602/screenshots/2618745/dribbble_cuba_01.jpg);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/730703/screenshots/3305128/james-gileard-folio-illustration-trump-foreign-affairs-magazine-dribble.jpg);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/510185/screenshots/3428814/kultura-_1.jpg);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/2733/screenshots/3424597/coffee-machine-dribbbs.png);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/2733/screenshots/2270024/shipdribbble.jpg);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/86249/screenshots/369352/fidel_mini.jpg);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/28543/screenshots/2872259/pattern_ieroglif-71.jpg);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/31625/screenshots/644127/math.jpg);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/108671/screenshots/1478588/science2.jpg);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/1058/screenshots/1206161/sign_dribbb.jpg);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/35810/screenshots/2071807/wagepoint-calculator.jpg);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/58661/screenshots/1818073/csc_pattern.png);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/1060640/screenshots/3534455/icecream.png);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/1245512/screenshots/3533716/__2.jpg);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/974609/screenshots/3533300/052717.jpg);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/353551/screenshots/3533743/daily_01_dribbble.png);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/148582/screenshots/3533907/dinny.png);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/148582/screenshots/2266982/cupcakes_.png);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/148582/screenshots/1985966/19th.png);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/719009/screenshots/3533859/sunny_beautiful_day_.jpg);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/1052957/screenshots/3534345/3-01.gif);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/1326793/screenshots/3533938/06_logic-result-illustration-freska.jpg);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/749358/screenshots/3534425/distraction_dribble.png);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/1731254/screenshots/3534236/tubik_arts_pot_illustration_cg.png);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="game-section">
+      <h2>Spiele aus der Kategorie: Politik und Gesellschaft</h2>
+      <div class="games">
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/2733/screenshots/3533565/dribbbs-frogzoomedout.jpg);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/407255/screenshots/3077264/usabuttons_pink.jpg);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/24812/screenshots/2358288/politico-4x3.jpg);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/126602/screenshots/2618745/dribbble_cuba_01.jpg);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/730703/screenshots/3305128/james-gileard-folio-illustration-trump-foreign-affairs-magazine-dribble.jpg);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/510185/screenshots/3428814/kultura-_1.jpg);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/2733/screenshots/3424597/coffee-machine-dribbbs.png);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/2733/screenshots/2270024/shipdribbble.jpg);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/86249/screenshots/369352/fidel_mini.jpg);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/28543/screenshots/2872259/pattern_ieroglif-71.jpg);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/31625/screenshots/644127/math.jpg);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/108671/screenshots/1478588/science2.jpg);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/1058/screenshots/1206161/sign_dribbb.jpg);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/35810/screenshots/2071807/wagepoint-calculator.jpg);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/58661/screenshots/1818073/csc_pattern.png);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/1060640/screenshots/3534455/icecream.png);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/1245512/screenshots/3533716/__2.jpg);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/974609/screenshots/3533300/052717.jpg);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/353551/screenshots/3533743/daily_01_dribbble.png);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/148582/screenshots/3533907/dinny.png);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/148582/screenshots/2266982/cupcakes_.png);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/148582/screenshots/1985966/19th.png);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/719009/screenshots/3533859/sunny_beautiful_day_.jpg);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/1052957/screenshots/3534345/3-01.gif);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/1326793/screenshots/3533938/06_logic-result-illustration-freska.jpg);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/749358/screenshots/3534425/distraction_dribble.png);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+
+        <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/1731254/screenshots/3534236/tubik_arts_pot_illustration_cg.png);"></div>
+          <span>Nachtschattengewächse</span>
+        </div>
+      </div>
+    </section>
+
   </div>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
   <script type="text/javascript">
@@ -231,6 +1014,16 @@
       var setCircleDistance = function(circle, distance) {
         circle.distance += distance;
         circle.setAttribute('style', 'transform: rotate(' + circle.deg + 'deg) translateX(' + (circle.distance) + 'px) rotate(-' + circle.deg + 'deg);');
+      }
+
+      var games = document.getElementsByClassName('game');
+      for(var i = 0; i < games.length; i++) {
+        console.log(games[i]);
+        var game = new Hammer.Manager(games[i]);
+        game.add(new Hammer.Tap({}));
+        game.on('tap', function(event){
+          startGame();
+        });
       }
 
       var addCircle = function(deg, color) {
@@ -388,7 +1181,7 @@
           setTimeout(function(){
             loader.remove();
           }, 1001);
-        }, 4000);
+        }, 400);
       }
   </script>
 </body>
