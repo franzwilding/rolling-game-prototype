@@ -44,21 +44,51 @@
         z-index: 10;
       }
 
-      svg {
+      #canvas {
         position: absolute;
         background: #fefefe;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
+        width: 200vw;
+        height: 200vh;
       }
 
-      svg circle.ball {
+      #canvas div.ball {
         cursor: pointer;
+        position: absolute;
+        margin: -12px 0 0 -12px;
+        top: 50%;
+        left: 50%;
+        width: 24px;
+        height: 24px;
+        border-radius: 100%;
+        background: #eee;
+        transition: all 1s ease-out;
       }
 
-      svg.open circle.ball {
+      #canvas div.ball span {
+        font-size: 10px;
+        white-space: nowrap;
+        margin-left: 30px;
+        font-weight: bold;
+        text-transform: uppercase;
+      }
+
+      #canvas div.ball.active {
+        transition: none;
+      }
+
+      #canvas.open div.ball {
         opacity: 0.25;
+      }
+
+      #canvas .center {
+        width: 6px;
+        height: 6px;
+        border-radius: 100%;
+        border: 1px solid #999;
+        margin: -3px 0 0 -3px;
+        top: 50%;
+        left: 50%;
+        position: absolute;
       }
 
       #overlay {
@@ -273,8 +303,13 @@
     <!--script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g=" crossorigin="anonymous"></script-->
 </head>
 <body>
+
+<div id="court">
+  <div class="circle" dragable="true"></div>
+</div>
+
   <div class="scroll">
-    <svg id="canvas" width="100%" height="100%" viewBox="0 0 100 100"></svg>
+    <div id="canvas"></div>
     <img class="end-game" src="endGame.svg" onclick="endGame();"></div>
   </div>
   <div id="overlay">
@@ -293,12 +328,10 @@
 
     <header>
       <h1><span>Rolling:</span> Spieleauswahl</h1>
-
-<svg class="settings-icon" width="38px" height="38px" viewBox="0 0 38 38" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+      <svg class="settings-icon" width="38px" height="38px" viewBox="0 0 38 38" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
         <path d="M18.9476563,9.875 C21.5518359,9.875 23.7653555,10.7864492 25.5882813,12.609375 C27.411207,14.4323008 28.3226563,16.6458203 28.3226563,19.25 C28.3226563,21.8541797 27.411207,24.0676992 25.5882813,25.890625 C23.7653555,27.7135508 21.5518359,28.625 18.9476563,28.625 C16.3434766,28.625 14.129957,27.7135508 12.3070313,25.890625 C10.4841055,24.0676992 9.57265625,21.8541797 9.57265625,19.25 C9.57265625,16.6458203 10.4841055,14.4323008 12.3070313,12.609375 C14.129957,10.7864492 16.3434766,9.875 18.9476563,9.875 Z M18.9476563,27.0625 C21.0961045,27.0625 22.9352788,26.2975337 24.4652344,24.7675781 C25.9951899,23.2376226 26.7601563,21.3984482 26.7601563,19.25 C26.7601563,17.1015518 25.9951899,15.2623774 24.4652344,13.7324219 C22.9352788,12.2024663 21.0961045,11.4375 18.9476563,11.4375 C16.799208,11.4375 14.9600337,12.2024663 13.4300781,13.7324219 C11.9001226,15.2623774 11.1351563,17.1015518 11.1351563,19.25 C11.1351563,21.3984482 11.9001226,23.2376226 13.4300781,24.7675781 C14.9600337,26.2975337 16.799208,27.0625 18.9476563,27.0625 Z M13.5765625,2.35546875 C12.5999951,2.68099121 11.6234424,3.0716123 10.646875,3.52734375 C10.777084,4.04817969 10.777084,4.82942187 10.646875,5.87109375 C10.4515615,7.17318359 9.86562988,8.31249512 8.8890625,9.2890625 C7.65207715,10.5260479 6.15469629,11.1445312 4.396875,11.1445312 C3.81093457,11.1445312 3.38776172,11.1119795 3.12734375,11.046875 C2.6716123,12.0234424 2.28099121,12.9999951 1.95546875,13.9765625 C2.47630469,14.302085 3.02968457,14.8554648 3.615625,15.6367188 C4.39687891,16.6783906 4.7875,17.8828057 4.7875,19.25 C4.7875,20.5520898 4.39687891,21.7565049 3.615625,22.8632812 C3.02968457,23.6445352 2.47630469,24.197915 1.95546875,24.5234375 C2.28099121,25.5000049 2.6716123,26.4765576 3.12734375,27.453125 C3.38776172,27.3880205 3.81093457,27.3554688 4.396875,27.3554688 C6.15469629,27.3554688 7.65207715,27.9739521 8.8890625,29.2109375 C9.86562988,30.1875049 10.4515615,31.3268164 10.646875,32.6289062 C10.777084,33.6705781 10.777084,34.4518203 10.646875,34.9726562 C11.6234424,35.4283877 12.5999951,35.8190088 13.5765625,36.1445312 C13.902085,35.6236953 14.4554648,35.0703154 15.2367188,34.484375 C16.3434951,33.7031211 17.5479102,33.3125 18.85,33.3125 C20.2171943,33.3125 21.4216094,33.7031211 22.4632813,34.484375 C23.2445352,35.0703154 23.797915,35.6236953 24.1234375,36.1445312 C25.1000049,35.8190088 26.0765576,35.4283877 27.053125,34.9726562 C26.922916,34.4518203 26.922916,33.6705781 27.053125,32.6289062 C27.2484385,31.3268164 27.8343701,30.1875049 28.8109375,29.2109375 C30.0479229,27.9739521 31.5453037,27.3554688 33.303125,27.3554688 C33.8890654,27.3554688 34.3122383,27.3880205 34.5726563,27.453125 C35.0283877,26.4765576 35.4190088,25.5000049 35.7445313,24.5234375 C35.2236953,24.197915 34.6703154,23.6445352 34.084375,22.8632812 C33.3031211,21.7565049 32.9125,20.5520898 32.9125,19.25 C32.9125,17.8828057 33.3031211,16.6783906 34.084375,15.6367188 C34.6703154,14.8554648 35.2236953,14.302085 35.7445313,13.9765625 C35.4190088,12.9999951 35.0283877,12.0234424 34.5726563,11.046875 C34.3122383,11.1119795 33.8890654,11.1445312 33.303125,11.1445312 C31.5453037,11.1445312 30.0479229,10.5260479 28.8109375,9.2890625 C27.8343701,8.31249512 27.2484385,7.17318359 27.053125,5.87109375 C26.922916,4.82942187 26.922916,4.04817969 27.053125,3.52734375 C26.0765576,3.0716123 25.1000049,2.68099121 24.1234375,2.35546875 C23.797915,2.87630469 23.2445352,3.42968457 22.4632813,4.015625 C21.4216094,4.79687891 20.2171943,5.1875 18.85,5.1875 C17.5479102,5.1875 16.3434951,4.79687891 15.2367188,4.015625 C14.4554648,3.42968457 13.902085,2.87630469 13.5765625,2.35546875 Z M23.3421875,0.5 C25.4255313,1.02083594 27.2809814,1.80207812 28.9085938,2.84375 C27.9971309,4.86198926 28.3226484,6.65233594 29.8851563,8.21484375 C30.7966191,9.12630664 31.9359307,9.58203125 33.303125,9.58203125 C34.0843789,9.58203125 34.7354141,9.45182422 35.25625,9.19140625 C36.2979219,10.8190186 37.0791641,12.6744688 37.6,14.7578125 C35.5166562,15.5390664 34.475,17.0364473 34.475,19.25 C34.475,21.4635527 35.5166562,22.9609336 37.6,23.7421875 C37.0791641,25.8255312 36.2979219,27.6809814 35.25625,29.3085938 C34.7354141,29.0481758 34.0843789,28.9179688 33.303125,28.9179688 C31.9359307,28.9179688 30.7966191,29.3736934 29.8851563,30.2851562 C28.3226484,31.8476641 27.9971309,33.6380107 28.9085938,35.65625 C27.2809814,36.6979219 25.4255313,37.4791641 23.3421875,38 C22.5609336,35.9166563 21.0635527,34.875 18.85,34.875 C16.6364473,34.875 15.1390664,35.9166563 14.3578125,38 C12.2744688,37.4791641 10.4190186,36.6979219 8.79140625,35.65625 C9.70286914,33.6380107 9.37735156,31.8476641 7.81484375,30.2851562 C6.90338086,29.3736934 5.76406934,28.9179688 4.396875,28.9179688 C3.61562109,28.9179688 2.96458594,29.0481758 2.44375,29.3085938 C1.40207813,27.6809814 0.620835938,25.8255312 0.1,23.7421875 C2.18334375,22.9609336 3.225,21.4635527 3.225,19.25 C3.225,17.0364473 2.18334375,15.5390664 0.1,14.7578125 C0.620835938,12.6744688 1.40207813,10.8190186 2.44375,9.19140625 C2.96458594,9.45182422 3.61562109,9.58203125 4.396875,9.58203125 C5.76406934,9.58203125 6.90338086,9.12630664 7.81484375,8.21484375 C9.37735156,6.65233594 9.70286914,4.86198926 8.79140625,2.84375 C10.4190186,1.80207812 12.2744688,1.02083594 14.3578125,0.5 C15.1390664,2.58334375 16.6364473,3.625 18.85,3.625 C21.0635527,3.625 22.5609336,2.58334375 23.3421875,0.5 Z" id="ion-ios-gear-outline---Ionicons" fill="#000000"></path>
-    </g>
-</svg>
+    </g></svg>
     </header>
 
     <section class="game-section big first">
@@ -535,24 +568,23 @@
 
       var circles = [];
       var radius = 2;
-      var baseDistance = 17;
+      var baseDistance = 60;
       var count = 7;
-      var width = 100;
-      var svg = document.getElementById("canvas");
+      var canvas = document.getElementById("canvas");
       var overlay = document.getElementById("overlay");
       var loader = document.getElementById("loading");
       var mainmenu = document.getElementById("menu");
       var zoomedIn = false;
       var colors = [ '#D0011B', '#F6A623', '#F8E81C', '#B8E986', '#50E3C2', '#4990E2', '#9012FE', '#BD0FE1' ];
+      var titles = [ 'Freier Hochschulzugang', 'Anzahl an Studierenden', 'Brutoinlandsprodukt', 'Arbeitslosigkeit' ];
 
       var setCircleDistance = function(circle, distance) {
-        circle.distance += distance;
-        circle.setAttribute('style', 'transform: rotate(' + circle.deg + 'deg) translateX(' + (circle.distance) + 'px) rotate(-' + circle.deg + 'deg);');
+        circle.distance = distance;
+        circle.style.transform = 'rotate(' + circle.deg + 'deg) translateX(' + (circle.distance) + 'px) rotate(-' + circle.deg + 'deg)';
       }
 
       var games = document.getElementsByClassName('game');
       for(var i = 0; i < games.length; i++) {
-        console.log(games[i]);
         var game = new Hammer.Manager(games[i]);
         game.add(new Hammer.Tap({}));
         game.on('tap', function(event){
@@ -560,19 +592,43 @@
         });
       }
 
-      var addCircle = function(deg, color) {
-        var circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+      var addCircle = function(deg, color, title) {
+        var circle = document.createElement("div");
         circle.setAttribute('class', 'ball');
-        circle.setAttribute('cx', width/2);
-        circle.setAttribute('cy', width/2);
-        circle.setAttribute('r', radius);
-        circle.setAttribute('fill', color);
+        circle.title = title;
+        circle.style.background = color;
         circle.deg = deg;
         circle.distance = 0;
-        circle.factor = (Math.random() - 0.5);
+
+        var span = document.createElement('span');
+        span.innerText = title;
+        span.style.color = color;
+        circle.appendChild(span);
+
+        circle.calculateDistance = function(reference, distance){
+
+          /*return distance;
+
+          if(circle.title == 'Freier Hochschulzugang') {
+            if(reference.title == 'Anzahl an Studierenden') { return distance * 2; }
+            if(reference.title == 'Brutoinlandsprodukt') { return distance * 1.4; }
+            if(reference.title == 'Arbeitslosigkeit') { return distance * 1.2; }
+          }
+
+          if(circle.title == 'Arbeitslosigkeit') {
+            if(reference.title == 'Anzahl an Studierenden') { return distance * -1.1; }
+            if(reference.title == 'Brutoinlandsprodukt') { return distance * -2; }
+            if(reference.title == 'Freier Hochschulzugang') { return distance * 1.2; }
+          }*/
+
+          var d = distance + (distance * (Math.random() - 0.5) * 0.5);
+          if(d < 50) { d = 50; }
+          if(d > 315) { d = 315; }
+          return d;
+        };
         setCircleDistance(circle, baseDistance);
         circles.push(circle);
-        svg.appendChild(circle);
+        canvas.appendChild(circle);
 
         var hammer = new Hammer.Manager(circle);
         hammer.add(new Hammer.Pan({threshold: 0, pointers: 0, domEvents: true}));
@@ -586,16 +642,29 @@
           event.srcEvent.stopPropagation();
           event.srcEvent.preventDefault();
           event.preventDefault();
-          var svgB = svg.getBoundingClientRect();
+          var svgB = document.getElementsByClassName('scroll')[0].getBoundingClientRect();
+
+          // check, that circle is in container
+          if(event.center.x < 50) { event.center.x = 50; }
+          if(event.center.y < 50) { event.center.y = 50; }
+          if(event.center.x > (svgB.width - 50)) { event.center.x = (svgB.width - 50); }
+          if(event.center.y > (svgB.height - 50)) { event.center.y = (svgB.height - 50); }
+
           var x = event.center.x - (svgB.width / 2);
           var y = event.center.y - (svgB.height / 2);
-          var distance = Math.pow((Math.pow(x, 2) + Math.pow(y, 2)), 0.5) * (1/6.2) - circle.distance;
+          var distance = Math.pow((Math.pow(x, 2) + Math.pow(y, 2)), 0.5);
 
+          if(distance < 25) { distance = 25; }
+          circle.classList.add('active');
           setCircleDistance(circle, distance);
 
-          for(let i = 0; i < circles.length; i++) {
-            if(circles[i] != circle) {
-              setCircleDistance(circles[i], distance  * circles[i].factor);
+          if(event.isFinal) {
+            circle.classList.remove('active');
+            for(let i = 0; i < circles.length; i++) {
+              if(circles[i] != circle) {
+                circles[i].distance = circles[i].calculateDistance(circle, distance);
+                setCircleDistance(circles[i], circles[i].distance);
+              }
             }
           }
         });
@@ -607,41 +676,32 @@
             zoomedIn = true;
             var scroll = document.getElementsByClassName('scroll')[0];
             var b1 = scroll.getBoundingClientRect();
-            zoomIn(circle, 0, b1.width/4);
-            openOverlay(circle.getAttribute('fill'));
+            zoomIn(circle, b1.width/4);
+            openOverlay(circle.style.background, circle.title);
+            circle.style.opacity = 1;
           }
         });
       }
 
-      var zoomIn = function(circle, level, shiftLeft) {
-        if(level <= 10) {
-          setTimeout(function(){
-            zoom(EasingFunctions.easeOutQuad(level/10) * 5);
-            var bound = circle.getBoundingClientRect();
-            scroll(bound.left, bound.top, shiftLeft, 0);
-            zoomIn(circle, level+1, shiftLeft);
-            circle.style.opacity = 1;
-          }, 1);
-        }
+      var zoomIn = function(circle, shiftLeft) {
+        zoom(1.5);
+        var bound = circle.getBoundingClientRect();
+        scroll(bound.left, bound.top, shiftLeft, 0);
       }
 
       var zoomOut = function(level) {
-        if(level <= 10) {
-          setTimeout(function(){
-            zoom(EasingFunctions.easeOutQuad(level/10) * -5);
-            zoomOut(level+1);
-            for(let i = 0; i < circles.length; i++) {
-              circles[i].style.opacity = "";
-            }
-          }, 1);
+        zoom(1);
+        var circle = document.getElementsByClassName("center")[0];
+        var bound = circle.getBoundingClientRect();
+        scroll(bound.left, bound.top, 0, 0);
+        for(let i = 0; i < circles.length; i++) {
+          circles[i].style.opacity = "";
         }
       }
 
       var zoom = function(level) {
-        if((width + level) >= 100 && (width + level) <= 300) {
-          width += level;
-          svg.setAttribute('width', width + '%');
-          svg.setAttribute('height', width + '%');
+        if(level >= 1 && level <= 1.5) {
+          canvas.style.transform = 'scale(' + level + ')';
         }
       }
 
@@ -665,15 +725,20 @@
         return colors[i % colors.length];
       }
 
-      var openOverlay = function(color) {
+      var getTitle = function(i) {
+        return titles[i % titles.length];
+      }
+
+      var openOverlay = function(color, title) {
         overlay.classList.add('open');
         overlay.getElementsByTagName('h2')[0].style.color = color;
-        svg.classList.add('open');
+        overlay.getElementsByTagName('h2')[0].innerText = title;
+        canvas.classList.add('open');
       }
 
       var closeOverlay = function() {
         overlay.classList.remove('open');
-        svg.classList.remove('open');
+        canvas.classList.remove('open');
         zoomedIn = false;
         zoomOut(0);
       }
@@ -697,17 +762,13 @@
 
       window.onload = function(){
 
-        var circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-          circle.setAttribute('cx', width/2);
-          circle.setAttribute('cy', width/2);
-          circle.setAttribute('r', 1);
-          circle.setAttribute('fill', '#efefef');
-          circle.setAttribute('stroke', '#dedede');
-          circle.setAttribute('stroke-width', 0.10);
-          svg.appendChild(circle);
-
+        var circle = document.createElement("div");
+        circle.classList.add('center');
+        canvas.appendChild(circle);
+        var bound = circle.getBoundingClientRect();
+        scroll(bound.left, bound.top, 0, 0);
         for(var i = 0; i <= count; i++) {
-          addCircle(i * (360/(count+1)), getColor(i));
+          addCircle(i * (360/(count+1)), getColor(i), getTitle(i));
         }
 
         setTimeout(function(){
@@ -715,7 +776,7 @@
           setTimeout(function(){
             loader.remove();
           }, 1001);
-        }, 400);
+        }, 2000);
       }
   </script>
 </body>
