@@ -61,7 +61,12 @@
         height: 24px;
         border-radius: 100%;
         background: #eee;
-        transition: all 1s ease-out;
+        transition: all 1s ease-in-out;
+      }
+
+      #canvas:not(.started) div.ball {
+        transition: all 1s ease-in-out;
+        transform: rotate(0deg) translateX(0) rotate(-0deg) !important;
       }
 
       #canvas div.ball span {
@@ -364,6 +369,10 @@
       <h2>Meine Favoriten</h2>
       <div class="games">
         <div class="game">
+          <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/148582/screenshots/2266982/cupcakes_.png);"></div>
+          <span>Cup Cake Factory</span>
+        </div>
+        <div class="game">
           <div class="icon" style="background-image:url(https://cdn.dribbble.com/users/730703/screenshots/3305128/james-gileard-folio-illustration-trump-foreign-affairs-magazine-dribble.jpg);"></div>
           <span>Meine Stadt</span>
         </div>
@@ -568,7 +577,9 @@
 
       var circles = [];
       var radius = 2;
-      var baseDistance = 60;
+      var baseDistance = 150;
+      var maxDistance = 600;
+      var minDistance = 50;
       var count = 7;
       var canvas = document.getElementById("canvas");
       var overlay = document.getElementById("overlay");
@@ -577,10 +588,24 @@
       var zoomedIn = false;
       var colors = [ '#D0011B', '#F6A623', '#F8E81C', '#B8E986', '#50E3C2', '#4990E2', '#9012FE', '#BD0FE1' ];
       var titles = [ 'Freier Hochschulzugang', 'Anzahl an Studierenden', 'Brutoinlandsprodukt', 'Arbeitslosigkeit' ];
+      titles = [
+        'Preise',
+        'Standort',
+        'Verweildauer',
+        'Regionalität',
+        'Qualität',
+        'Service',
+        'Größe',
+        'Gesund'
+      ];
 
       var setCircleDistance = function(circle, distance) {
         circle.distance = distance;
-        circle.style.transform = 'rotate(' + circle.deg + 'deg) translateX(' + (circle.distance) + 'px) rotate(-' + circle.deg + 'deg)';
+        d = distance;
+        if(d < minDistance) { d = minDistance; }
+        if(d > maxDistance) { d = maxDistance; }
+
+        circle.style.transform = 'rotate(' + circle.deg + 'deg) translateX(' + (d) + 'px) rotate(-' + circle.deg + 'deg)';
       }
 
       var games = document.getElementsByClassName('game');
@@ -599,6 +624,7 @@
         circle.style.background = color;
         circle.deg = deg;
         circle.distance = 0;
+        circle.lastDistance = baseDistance;
 
         var span = document.createElement('span');
         span.innerText = title;
@@ -607,23 +633,76 @@
 
         circle.calculateDistance = function(reference, distance){
 
-          /*return distance;
+          d = circle.distance;
 
-          if(circle.title == 'Freier Hochschulzugang') {
-            if(reference.title == 'Anzahl an Studierenden') { return distance * 2; }
-            if(reference.title == 'Brutoinlandsprodukt') { return distance * 1.4; }
-            if(reference.title == 'Arbeitslosigkeit') { return distance * 1.2; }
+          if(reference.title == 'Preise') {
+            d += distance * Math.random();
           }
 
-          if(circle.title == 'Arbeitslosigkeit') {
-            if(reference.title == 'Anzahl an Studierenden') { return distance * -1.1; }
-            if(reference.title == 'Brutoinlandsprodukt') { return distance * -2; }
-            if(reference.title == 'Freier Hochschulzugang') { return distance * 1.2; }
-          }*/
+          if(reference.title == 'Standort') {
+            if(circle.title == 'Größe') {
+              d -= distance * 0.8;
+            }
 
-          var d = distance + (distance * (Math.random() - 0.5) * 0.5);
-          if(d < 50) { d = 50; }
-          if(d > 315) { d = 315; }
+            if(circle.title == 'Preise') {
+              d += distance * 0.5;
+            }
+          }
+
+          if(reference.title == 'Verweildauer') {
+            if(circle.title == 'Preise') {
+              d += distance * 0.3;
+            }
+            if(circle.title == 'Service') {
+              d += distance * 0.4;
+            }
+          }
+
+          if(reference.title == 'Regionalität') {
+            if(circle.title == 'Preise') {
+              d += distance * 1.1;
+            }
+            if(circle.title == 'Gesund') {
+              d += distance * 1.4;
+            }
+          }
+
+          if(reference.title == 'Qualität') {
+            if(circle.title == 'Preise') {
+              d += distance * 2.0;
+            }
+            if(circle.title == 'Gesund') {
+              d += distance * 0.4;
+            }
+          }
+
+          if(reference.title == 'Service') {
+            if(circle.title == 'Preise') {
+              d += distance * 0.3;
+            }
+            if(circle.title == 'Verweildauer') {
+              d += distance * 0.7;
+            }
+          }
+
+          if(reference.title == 'Größe') {
+            if(circle.title == 'Preise') {
+              d -= distance * 0.3;
+            }
+            if(circle.title == 'Standort') {
+              d -= distance * 1.2;
+            }
+            if(circle.title == 'Service') {
+              d -= distance * 0.4;
+            }
+          }
+
+          if(reference.title == 'Gesund') {
+            if(circle.title == 'Qualität') {
+              d += distance;
+            }
+          }
+
           return d;
         };
         setCircleDistance(circle, baseDistance);
@@ -645,24 +724,26 @@
           var svgB = document.getElementsByClassName('scroll')[0].getBoundingClientRect();
 
           // check, that circle is in container
-          if(event.center.x < 50) { event.center.x = 50; }
-          if(event.center.y < 50) { event.center.y = 50; }
-          if(event.center.x > (svgB.width - 50)) { event.center.x = (svgB.width - 50); }
-          if(event.center.y > (svgB.height - 50)) { event.center.y = (svgB.height - 50); }
+          if(event.center.x < minDistance) { event.center.x = minDistance; }
+          if(event.center.y < minDistance) { event.center.y = minDistance; }
+          if(event.center.x > (svgB.width - minDistance)) { event.center.x = (svgB.width - minDistance); }
+          if(event.center.y > (svgB.height - minDistance)) { event.center.y = (svgB.height - minDistance); }
 
           var x = event.center.x - (svgB.width / 2);
           var y = event.center.y - (svgB.height / 2);
           var distance = Math.pow((Math.pow(x, 2) + Math.pow(y, 2)), 0.5);
 
-          if(distance < 25) { distance = 25; }
           circle.classList.add('active');
           setCircleDistance(circle, distance);
 
           if(event.isFinal) {
+            var relativeDistance = circle.distance - circle.lastDistance;
+            circle.lastDistance = circle.distance;
+
             circle.classList.remove('active');
             for(let i = 0; i < circles.length; i++) {
               if(circles[i] != circle) {
-                circles[i].distance = circles[i].calculateDistance(circle, distance);
+                circles[i].distance = circles[i].calculateDistance(circle, relativeDistance);
                 setCircleDistance(circles[i], circles[i].distance);
               }
             }
@@ -745,14 +826,16 @@
 
       var startGame = function(){
         mainmenu.classList.add('out');
+        canvas.classList.add('started');
       }
 
       var endGame = function(){
         if (confirm('Möchtest du das aktuelle Spiel unterbrechen und zum Hauptmenü zurückkehren?')) {
-          mainmenu.classList.remove('out');
+          canvas.classList.remove('started');
           setTimeout(function(){
+            mainmenu.classList.remove('out');
             for(var i = 0; i < circles.length; i++) {
-              setCircleDistance(circles[i], baseDistance - circles[i].distance);
+              setCircleDistance(circles[i], baseDistance);
             }
             closeOverlay();
           }, 1000);
